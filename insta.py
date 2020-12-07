@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import datetime
 
 def ShowHelp():
-	print( 'Insta Image Downloader'
+	print( 'Insta Image Downloader')
 	print( '')
 	print( 'Usage:')
 	print( 'insta.py [OPTION] [URL]')
