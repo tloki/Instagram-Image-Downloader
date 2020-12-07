@@ -1,7 +1,8 @@
 from sys import argv
-import urllib
+import urllib.request
 from bs4 import BeautifulSoup
 import datetime
+import os
 
 
 def ShowHelp():
@@ -24,13 +25,18 @@ def ShowHelp():
 
 def DownloadSingleFile(fileURL):
     print('Downloading image...')
-    f = urllib.urlopen(fileURL)
+    f = urllib.request.urlopen(fileURL)
     htmlSource = f.read()
     soup = BeautifulSoup(htmlSource, 'html.parser')
     metaTag = soup.find_all('meta', {'property': 'og:image'})
     imgURL = metaTag[0]['content']
     fileName = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S") + '.jpg'
-    urllib.urlretrieve(imgURL, fileName)
+
+    i = 1
+    while os.path.exists(fileName):
+        datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + f"_{i}.jpg"
+        i += 1
+    urllib.request.urlretrieve(imgURL, fileName)
     print('Done. Image saved to disk as ' + fileName)
 
 
