@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 import datetime
 import os
 
+FORMAT = "%Y_%m_%d_%H_%M_%S"
+
 
 def ShowHelp():
     print('Insta Image Downloader')
@@ -30,7 +32,7 @@ def DownloadSingleFile(fileURL):
     soup = BeautifulSoup(htmlSource, 'html.parser')
     metaTag = soup.find_all('meta', {'property': 'og:image'})
     imgURL = metaTag[0]['content']
-    fileName = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S") + '.jpg'
+    fileName = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S") + '_0.jpg'
 
     i = 1
     while os.path.exists(fileName):
@@ -43,9 +45,11 @@ def DownloadSingleFile(fileURL):
 if __name__ == '__main__':
     if len(argv) == 1:
         ShowHelp()
+        input()
 
     if argv[1] in ('-h', '--help'):
         ShowHelp()
+        input()
 
     elif argv[1] == '-u':
         instagramURL = argv[2]
